@@ -26,6 +26,11 @@ _start:
   addi  gp, gp, %pcrel_lo(1b)
 .option pop
 
+  # Initialize table jump base
+2:auipc a0, %pcrel_hi(__jvt_base$)
+  addi  a0, a0, %pcrel_lo(2b)
+  csrw jvt, a0
+
   # Clear the bss segment
   la      a0, _edata
   la      a2, _end
